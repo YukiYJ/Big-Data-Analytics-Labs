@@ -19,17 +19,50 @@ public class WordCount {
   public static class TokenizerMapper extends Mapper<Object, Text, Text, IntWritable> {
 
     private final static IntWritable one = new IntWritable(1);
-    private Text word = new Text();
+    private Text word = new Text();//for 1 and 2
+    private Text count = new Text();//for 3
+    private Text letter = new Text();//for 4
+    private String next = new String();//for 4
 
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
       StringTokenizer itr = new StringTokenizer(value.toString());
       while (itr.hasMoreTokens()) {
+        //1-Count the words beginning with 'a'
+    	  /*
         word.set(itr.nextToken());
-    	//if(word.charAt(0) == 'a'){ //whether the first character of the string is 'a'
+    	  if(word.charAt(0) == 'a'){ //whether the first character of the string is 'a'
+        	System.out.println("Map phase: We are processing word " + word);
+        	context.write(word, one);
+      	}
+        */
+        
+        //2-Count the words with length larger than 10
+        /*
+    	  word.set(itr.nextToken());
         if(word.getLength() > 10){ // whether the length of a word is longer than 10
-    		System.out.println("Map phase: We are processing word " + word);
-    		context.write(word, one);
-    	}
+    		  System.out.println("Map phase: We are processing word " + word);
+    		  context.write(word, one);
+    	  }
+        */
+        
+        //3-Count the word with length from 0 to n
+    	  /*
+        word.set(itr.nextToken());
+        count.set(Integer.toString(word.getLength()));
+        System.out.println("Map phase: We are processing word " + word);
+        context.write(count, one);
+        */
+        
+        //4-Count the letters appear in the documents
+        next = itr.nextToken();
+        for (int i = 0; i < next.length(); i++){
+            char c = next.charAt(i);  
+            if (Character.isLetter(c)){
+            	letter.set(Character.toString(c).toLowerCase());
+            	System.out.println("Map phase: We are processing word " + word);
+            	context.write(letter, one);
+            }
+        }
       }
     }
   }
