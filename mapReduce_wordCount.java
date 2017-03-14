@@ -56,12 +56,12 @@ public class WordCount {
         //4-Count the letters appear in the documents
         next = itr.nextToken();
         for (int i = 0; i < next.length(); i++){
-            char c = next.charAt(i);  
-            if (Character.isLetter(c)){
-            	letter.set(Character.toString(c).toLowerCase());
-            	System.out.println("Map phase: We are processing word " + word);
-            	context.write(letter, one);
-            }
+          char c = next.charAt(i);  
+          if (Character.isLetter(c)){
+            letter.set(Character.toString(c).toLowerCase());
+            System.out.println("Map phase: We are processing word " + word);
+            context.write(letter, one);
+          }
         }
       }
     }
